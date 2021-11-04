@@ -1,0 +1,61 @@
+version: "3.8"
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.15.1
+    container_name: elasticsearch
+    environment:
+      - node.name=elasticsearc
+      - cluster.name=es-docker-cluster
+      - cluster.initial_master_nodes=elasticsearch
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - elastic_vol:/usr/share/elasticsearch/data
+      - elastic_data:/var/lib/elasticsearch
+      - elastic_log:/var/log/elasticsearch
+      - ./elasticsearch.yml:/etc/elasticsearch/elasticsearch.yml
+    ports:
+      - 9200:9200
+    networks:
+      - elastic_net
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.15.1
+    container_name: kibana
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    volumes:
+      - kibana_vol:/usr/share/kibana
+      - ./kibana.yml:/etc/kibana/kibana.yml
+    ports:
+      - 5601:5601
+    networks:
+      - elastic_net
+    depends_on:
+      - elasticsearch
+  logstash:
+    image: docker.elastic.co/logstash/logstash:7.15.1
+    container_name: logstash
+    volumes:
+      - logstash_vol:/usr/share/logstash/config
+      - logstash_log:/var/log/logstash
+    networks:
+      - elastic_net
+
+
+volumes:
+  elastic_vol: {}
+  elastic_data: {}
+  elastic_log: {}
+  kibana_vol: {}
+  logstash_vol: {}
+  logstash_log: {}
+
+networks:
+  elastic_net:
+    external: false
+    driver: bridge
