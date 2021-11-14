@@ -12,5 +12,9 @@ This repository made for build simple of ELK Stack with Docker.
 * [Docker](https://docs.docker.com/engine/install/ubuntu/)
 * [Docker Compose](https://docs.docker.com/compose/install/)
 
+## Reference
+- [Elasticsearch.yml](https://github.com/elastic/elasticsearch/blob/master/distribution/src/config/elasticsearch.yml)
+- [Kibana.yml](https://github.com/elastic/kibana/blob/main/config/kibana.yml)
+
 ## Contributor
 <a href="https://github.com/Harin3Bone"><img src="https://img.shields.io/badge/Harin3Bone-181717?style=flat&logo=github&logoColor=ffffff"></a>
