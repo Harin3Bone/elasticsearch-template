@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.15.1
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.15.2
     container_name: elasticsearch
     environment:
       - node.name=elasticsearc
@@ -24,7 +24,7 @@ services:
     networks:
       - elastic_net
   kibana:
-    image: docker.elastic.co/kibana/kibana:7.15.1
+    image: docker.elastic.co/kibana/kibana:7.15.2
     container_name: kibana
     environment:
       - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
